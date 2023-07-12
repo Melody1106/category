@@ -45,24 +45,26 @@ var_dump($rowCateE);
             </div>
             <div class="card-body">
                 <form action="" method="post">
-
+                <?php foreach($rowCateE as $row): ?>
                     <div class="form-group mb-2">
                         <label class="" for="exampleFormControlInput1">ID</label>
-                        <input disabled type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
+                        <input disabled type="text" class="form-control" id="exampleFormControlInput1"value="<?=$row["subcategory_id"]?>" >
                     </div>
+                  
                     <div class="form-group mb-2">
                         <label class="" for="exampleFormControlInput1">子類別名稱</label>
-                        <input type="text" value="<?=$rowCateE["subcategory_name"]?>" class="form-control" id="exampleFormControlInput1" name="subcategory">
+                        <input type="text" value="<?=$row["subcategory_name"]?>" class="form-control" id="exampleFormControlInput1" name="subcategory">
                     </div>
+                    
                     <div class="form-group mb-2">
                         <label class="" for="exampleFormControlInput1">狀態</label>
                         <input type="text" class="form-control" id="exampleFormControlInput1" name="valid">
                     </div>
-
+                    <?php endforeach;?>
                     <div class="form-group mb-2">
                         <label for="exampleFormControlSelect1">主類別</label>
                         <select class="form-control" id="exampleFormControlSelect1" name="maincategory">
-                            <option>1</option>
+                            <option value="<?=$row["category_id"]?>"><?=$row["category_id"]?></option>
                             <option>2</option>
                             <option>3</option>
                             <option>4</option>
@@ -70,9 +72,9 @@ var_dump($rowCateE);
                             <option>6</option>
                         </select>
                     </div>
-
+                    
                    
-                    <button class="btn btn-secondary" type="submit"> 送出</button>
+                    <button class="btn btn-secondary" type="submit"> 確認</button>
                 </form>
 
 
