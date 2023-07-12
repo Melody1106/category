@@ -66,6 +66,7 @@ $cateRows = $resultCate->fetch_all(MYSQLI_ASSOC);
 </div>
 
   <div class="container">
+  <a class="btn btn-info mx-3" href="add-category.php"> 新增子類別</a>
     <div class="table-wrapper m-3 border border-1 rounded">
     <table class="table">
         <thead>
