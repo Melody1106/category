@@ -88,7 +88,7 @@ $cateRows = $resultCate->fetch_all(MYSQLI_ASSOC);
             <td>
               <div class="d-flex justify-content-around">
               <div class="col-auto ">
-                <a href="edit-category.php">編輯</a>
+                <a href="edit-category.php?id=<?=$sbCAT["subcategory_id"]?>">編輯</a>
               </div>
               <div class="col-auto ">刪除</div>
               <div class="col-auto">複製</div>

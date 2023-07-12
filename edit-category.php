@@ -1,15 +1,20 @@
 <?php include("db_connect.php")?>
-<?php
-if(!isset($_POST["category"])){
-    die("請依正常管道進入");
+<?php 
+if(!isset($_GET["id"])){
+    die("資料不存在");
 }
- //$id = $_GET["id"];
+$id = $_GET["id"];
 
-//  $sql = "SELECT * FROM subcategory WHERE id=$id AND valid=1";
-//  $result = $conn->query($sql);
-//  $row = $result->fetch_assoc(MYSQLI_ASSOC);
+$sql = "SELECT c.category_name, c.category_id, s.subcategory_id, s.subcategory_name, s.valid
+FROM subcategory AS s
+JOIN category AS c
+ON s.category_id = c.category_id
+WHERE s.subcategory_id = $id
+";
+$resultCateE = $conn->query($sql);
+$rowCateE = $resultCateE->fetch_all(MYSQLI_ASSOC);
 
-//  var_dump($row );
+var_dump($rowCateE);
 
 ?>
 
@@ -39,7 +44,7 @@ if(!isset($_POST["category"])){
                     編輯
             </div>
             <div class="card-body">
-                <form action="doadd-category.php" method="post">
+                <form action="" method="post">
 
                     <div class="form-group mb-2">
                         <label class="" for="exampleFormControlInput1">ID</label>
@@ -47,7 +52,7 @@ if(!isset($_POST["category"])){
                     </div>
                     <div class="form-group mb-2">
                         <label class="" for="exampleFormControlInput1">子類別名稱</label>
-                        <input type="text" class="form-control" id="exampleFormControlInput1" name="subcategory">
+                        <input type="text" value="<?=$rowCateE["subcategory_name"]?>" class="form-control" id="exampleFormControlInput1" name="subcategory">
                     </div>
                     <div class="form-group mb-2">
                         <label class="" for="exampleFormControlInput1">狀態</label>
