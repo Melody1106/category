@@ -85,7 +85,16 @@ $cateRows = $resultCate->fetch_all(MYSQLI_ASSOC);
             <td><?=$sbCAT["subcategory_name"]?></td>
             <td>顯示</td>
             <td><a href="category.php?category=<?=$sbCAT["category_id"]?>" class="text-decoration-none"> <?=$sbCAT["category_name"]?></a></td>
-            <td>編輯|刪除|複製</td>
+            <td>
+              <div class="d-flex justify-content-around">
+              <div class="col-auto ">
+                <a href="edit-category.php">編輯</a>
+              </div>
+              <div class="col-auto ">刪除</div>
+              <div class="col-auto">複製</div>
+              </div>
+            <!-- 編輯|刪除|複製 -->
+          </td>
           </tr>
         <?php endforeach;?>
       
