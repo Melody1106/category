@@ -1,7 +1,7 @@
 <?php include("db_connect.php")?>
 <?php 
 if(!isset($_GET["id"])){
-    die("資料不存在");
+    die("請依正常管道進入");
 }
 $id = $_GET["id"];
 
@@ -44,21 +44,25 @@ var_dump($rowCateE);
                     編輯
             </div>
             <div class="card-body">
-                <form action="" method="post">
+                <form action="doedit-category.php" method="post">
                 <?php foreach($rowCateE as $row): ?>
                     <div class="form-group mb-2">
                         <label class="" for="exampleFormControlInput1">ID</label>
-                        <input disabled type="text" class="form-control" id="exampleFormControlInput1"value="<?=$row["subcategory_id"]?>" >
+                        <!-- <input disabled type="text" value="<?=$row["subcategory_id"]?>"
+                         class="form-control" id="exampleFormControlInput1" name="subcategory_id"> -->
+                        <input readonly type="text" value="<?=$row["subcategory_id"]?>"
+                         class="form-control" id="exampleFormControlInput1" name="subcategory_id">
                     </div>
                   
                     <div class="form-group mb-2">
                         <label class="" for="exampleFormControlInput1">子類別名稱</label>
-                        <input type="text" value="<?=$row["subcategory_name"]?>" class="form-control" id="exampleFormControlInput1" name="subcategory">
+                        <input type="text" value="<?=$row["subcategory_name"]?>" 
+                        class="form-control" id="exampleFormControlInput1" name="subcategory">
                     </div>
                     
                     <div class="form-group mb-2">
                         <label class="" for="exampleFormControlInput1">狀態</label>
-                        <input type="text" class="form-control" id="exampleFormControlInput1" name="valid">
+                        <input type="text" value="<?=$row["valid"]?>" class="form-control" id="exampleFormControlInput1" name="valid">
                     </div>
                     <?php endforeach;?>
                     <div class="form-group mb-2">

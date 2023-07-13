@@ -10,6 +10,7 @@ $cateMainRows = $resultCategory->fetch_all(MYSQLI_ASSOC);
 
 //----------------------------------------
 if(isset($_GET["category"])){
+  // 類別篩選
   $getCate = $_GET["category"];
 
   $sql = "SELECT c.category_name, c.category_id, s.subcategory_id, s.subcategory_name
@@ -90,7 +91,9 @@ $cateRows = $resultCate->fetch_all(MYSQLI_ASSOC);
               <div class="col-auto ">
                 <a href="edit-category.php?id=<?=$sbCAT["subcategory_id"]?>">編輯</a>
               </div>
-              <div class="col-auto ">刪除</div>
+              <div class="col-auto ">
+                <a href="">刪除</a>
+              </div>
               <div class="col-auto">複製</div>
               </div>
             <!-- 編輯|刪除|複製 -->
