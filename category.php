@@ -11,14 +11,14 @@ $sqlPage = "SELECT subcategory_id FROM subcategory WHERE valid=1";
 $resultPage = $conn->query($sqlPage);
 $totalUser = $resultPage->num_rows;
 $resultV = $resultPage->fetch_all(MYSQLI_ASSOC);
-var_dump($resultV);
-var_dump($totalUser);
+//var_dump($resultV);
+//var_dump($totalUser);
 
 $perPage = 5;
 $startItem=($page-1)*$perPage;
 //頁數計算
 $totalPage=$totalUser/$perPage;
-var_dump($totalPage);
+//var_dump($totalPage);
 
 //----------------------------------------
 if(isset($_GET["category"])){
@@ -31,6 +31,14 @@ if(isset($_GET["category"])){
   ON s.category_id = c.category_id
   WHERE s.category_id = $getCate
 ";
+}elseif(isset($_GET["page"])){
+  $page=isset($_GET["page"]) ? $_GET["page"] : 1;
+  $sql = "SELECT c.category_name, c.category_id, s.subcategory_id, s.subcategory_name, s.valid
+  FROM subcategory AS s
+  JOIN category AS c
+  ON s.category_id = c.category_id
+  WHERE valid = 1 LIMIT $startItem,$perPage
+  ";
 }else{
   $sql = "SELECT c.category_name, c.category_id, s.subcategory_id, s.subcategory_name, s.valid
   FROM subcategory AS s
@@ -91,7 +99,10 @@ $cateRows = $resultCate->fetch_all(MYSQLI_ASSOC);
     </div>
 
   <div class="container">
-  <a class="btn btn-info mx-3" href="add-category.php"> 新增子類別</a>
+    <div class="py-2 d-flex justify-content-between">
+    <a class="btn btn-info mx-3" href="add-category.php"> 新增子類別</a>
+    <!-- <a href="category.php?page=<?=$page?>&type=1" class="btn btn-primary <?php if($type==1)echo"active";?>">id<i class="fa-solid fa-arrow-down-1-9"></i></a> -->
+    </div >
     <div class="table-wrapper m-3 border border-1 rounded">
     <table class="table">
         <thead>
@@ -146,8 +157,10 @@ $cateRows = $resultCate->fetch_all(MYSQLI_ASSOC);
     <div class="container mx-3 d-flex justify-content-center">
     <nav aria-label="Page navigation example">
   <ul class="pagination">
-    <?php for($i =1; $i<= $totalPage; $i++):?>
-    <li class="page-item"><a class="page-link" href="category.php?page=<?=$i?>"><?= $i?></a></li>
+    <?php for($i =1; $i<=$totalPage; $i++):?>
+    <li class="page-item <?php if($i == $page)echo "active";?>">
+      <a class="page-link" href="category.php?page=<?=$i?>"><?= $i?></a>
+    </li>
     <?php endfor; ?>
   </ul>
 </nav>
