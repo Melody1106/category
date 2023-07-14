@@ -5,7 +5,7 @@ $sqlCategory="SELECT * FROM category ";
 $resultCategory = $conn->query($sqlCategory);
 $cateMainRows = $resultCategory->fetch_all(MYSQLI_ASSOC);
 // 抓取頁數------------------------------------
-$page = $_GET["page"];
+$page = isset($_GET["page"])? $_GET["page"] :1;
 
 $sqlPage = "SELECT subcategory_id FROM subcategory WHERE valid=1";
 $resultPage = $conn->query($sqlPage);
@@ -67,6 +67,9 @@ $cateRows = $resultCate->fetch_all(MYSQLI_ASSOC);
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
 
 <body>
@@ -101,7 +104,9 @@ $cateRows = $resultCate->fetch_all(MYSQLI_ASSOC);
   <div class="container">
     <div class="py-2 d-flex justify-content-between">
     <a class="btn btn-info mx-3" href="add-category.php"> 新增子類別</a>
-    <!-- <a href="category.php?page=<?=$page?>&type=1" class="btn btn-primary <?php if($type==1)echo"active";?>">id<i class="fa-solid fa-arrow-down-1-9"></i></a> -->
+    <a href="category.php?page=<?=$page?>" class="btn btn-primary ">id<i class="fa-solid fa-arrow-down-1-9"></i></a>
+    <a href="category.php?page=<?=$page?>" class="btn btn-primary ">id
+    <i class="fa-solid fa-arrow-down-9-1"></i></a>
     </div >
     <div class="table-wrapper m-3 border border-1 rounded">
     <table class="table">
