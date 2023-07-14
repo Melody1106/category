@@ -1,3 +1,14 @@
+<?php include("db_connect.php") ?>
+
+<?php
+
+$sqlCategory = "SELECT * FROM category ";
+$resultCategory = $conn->query($sqlCategory);
+$cateMainRows = $resultCategory->fetch_all(MYSQLI_ASSOC);
+
+var_dump($cateMainRows);
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -27,36 +38,23 @@
                 <form action="doadd-category.php" method="post">
 
                     <div class="form-group mb-2">
-                        <label class="" for="exampleFormControlInput1">ID</label>
-                        <input disabled type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
-                    </div>
-                    <div class="form-group mb-2">
                         <label class="" for="exampleFormControlInput1">子類別名稱</label>
                         <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="請輸入子類別名稱" name="subcategory">
                     </div>
 
+
                     <div class="form-group mb-2">
                         <label for="exampleFormControlSelect1">主類別</label>
-                        <select class="form-control" id="exampleFormControlSelect1" name="maincategory">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
+                        <select class="form-select" aria-label="Default select example" name="maincategory">
+                            <!-- <option selected>請選擇</option> -->
+                            <?php foreach($cateMainRows as $mainCATE): ?>
+                            <option value="<?=$mainCATE["category_id"] ?>">
+                               <?=$mainCATE["category_name"] ?>
+                            </option>
+                            <?php endforeach; ?>
+                           
                         </select>
                     </div>
-
-                    <!-- <div class="form-group mb-2">
-                        <label for="exampleFormControlSelect1">狀態</label>
-                        <select class="form-control" id="exampleFormControlSelect1">
-                            <option>1</option>
-                            <option>2</option>
-                        </select>
-                    </div> -->
-
-
-
                     <button class="btn btn-secondary" type="submit"> 送出</button>
                 </form>
 

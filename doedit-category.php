@@ -11,7 +11,7 @@ $valid = $_POST["valid"];
 $sql ="UPDATE subcategory AS s
 JOIN category AS c
 ON s.category_id = c.category_id
-SET s.subcategory_name = '$subcategory',c.category_name = '$category', s.valid ='$valid'
+SET s.subcategory_name = '$subcategory',s.category_id = '$category', s.valid ='$valid'
 WHERE s.subcategory_id = $id";
 
 $resultEdit = $conn->query($sql);

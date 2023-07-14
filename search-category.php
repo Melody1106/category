@@ -3,6 +3,7 @@
 <?php
 
 
+
 $sqlCategory="SELECT * FROM category ";
 $resultCategory = $conn->query($sqlCategory);
 $cateMainRows = $resultCategory->fetch_all(MYSQLI_ASSOC);
@@ -18,6 +19,16 @@ if(isset($_GET["category"])){
   ON s.category_id = c.category_id
   WHERE s.category_id = $getCate
 ";
+}elseif(isset($_GET["name"])){
+    $name = $_GET["name"];
+    $sql = "SELECT c.category_name, c.category_id, s.subcategory_id, s.subcategory_name, s.valid
+    FROM subcategory AS s
+    JOIN category AS c
+    ON s.category_id = c.category_id
+    WHERE s.subcategory_name LIKE '%$name%'
+
+    
+    ";
 }else{
   $sql = "SELECT c.category_name, c.category_id, s.subcategory_id, s.subcategory_name, s.valid
 FROM subcategory AS s
@@ -29,7 +40,9 @@ ON s.category_id = c.category_id
 $resultCate = $conn->query($sql); 
 $cateRows = $resultCate->fetch_all(MYSQLI_ASSOC);
 
-//var_dump($cateSbRows);
+var_dump($cateSbRows);
+
+
 ?>
 
 <!doctype html>
@@ -47,17 +60,10 @@ $cateRows = $resultCate->fetch_all(MYSQLI_ASSOC);
 </head>
 
 <body>
-  <div class="container">
-<ul class="nav">
-  <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="category.php">全部主類別</a>
-  </li>
-  <?php foreach($cateMainRows as $mainCATE):?>
-  <li class="nav-item">
-    <a class="nav-link" href="category.php?category=<?=$mainCATE["category_id"]?>"><?=$mainCATE["category_name"]?></a>
-  </li>
-  <?php endforeach;?>
-</ul>
+<div class="container">
+    <div class="py-2">
+    <a class="btn btn-info mx-3" href="category.php"> 回類別列表</a>
+    </div>
 </div>
     <div class="container">
       <div class="py-2 px-3">
@@ -72,10 +78,12 @@ $cateRows = $resultCate->fetch_all(MYSQLI_ASSOC);
         </div>
         </form>
       </div>
+      <div class="d-flex justify-content-between align-items-center px-3">
+        <div>共有<?=$user_count?>筆資料</div>
+      </div>
     </div>
 
   <div class="container">
-  <a class="btn btn-info mx-3" href="add-category.php"> 新增子類別</a>
     <div class="table-wrapper m-3 border border-1 rounded">
     <table class="table">
         <thead>
@@ -84,7 +92,6 @@ $cateRows = $resultCate->fetch_all(MYSQLI_ASSOC);
             <th scope="col">子類別名稱</th>
             <th scope="col">狀態</th>
             <th scope="col">主類別</th>
-            <th scope="col">操作</th>
           </tr>
         </thead>
         <tbody>
@@ -104,31 +111,10 @@ $cateRows = $resultCate->fetch_all(MYSQLI_ASSOC);
               <a href="category.php?category=<?=$subCATE["category_id"]?>" class="text-decoration-none"> 
               <?=$subCATE["category_name"]?>
             </a>
-            </td>
-            <td>
-              <div class="d-flex justify-content-around">
-              <div class="col-auto ">
-                <a href="edit-category.php?id=<?=$subCATE["subcategory_id"]?>">編輯</a>
-              </div>
-              <div class="col-auto ">
-                <a href="dodeleted-category.php">刪除</a>
-              </div>
-              <!-- <div class="col-auto">複製</div>
-              </div> -->
-         
-          </td>
+        </td>
           </tr>
         <?php endforeach;?>
       
-          <!-- <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>隱藏</td>
-            <td>第二層級</td>
-            <td>編輯|刪除|複製</td>
-          </tr>
-          -->
- 
         </tbody>
       </table>
     </div>

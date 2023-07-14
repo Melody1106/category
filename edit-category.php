@@ -15,6 +15,14 @@ $resultCateE = $conn->query($sql);
 $rowCateE = $resultCateE->fetch_all(MYSQLI_ASSOC);
 
 var_dump($rowCateE);
+echo "<br>";
+
+
+$sqlCategory = "SELECT * FROM category ";
+$resultCategory = $conn->query($sqlCategory);
+$cateMainRows = $resultCategory->fetch_all(MYSQLI_ASSOC);
+
+var_dump($cateMainRows);
 
 ?>
 
@@ -40,9 +48,7 @@ var_dump($rowCateE);
             <a class="btn btn-info" href="category.php">回類別頁面</a>
         </div>
         <div class="card col-8">
-            <div class="card-header text-center">
-                    編輯
-            </div>
+            <div class="card-header text-center">編輯</div>
             <div class="card-body">
                 <form action="doedit-category.php" method="post">
                 <?php foreach($rowCateE as $row): ?>
@@ -62,21 +68,30 @@ var_dump($rowCateE);
                     
                     <div class="form-group mb-2">
                         <label class="" for="exampleFormControlInput1">狀態</label>
-                        <input type="text" value="<?=$row["valid"]?>" class="form-control" id="exampleFormControlInput1" name="valid">
-                    </div>
-                    <?php endforeach;?>
-                    <div class="form-group mb-2">
-                        <label for="exampleFormControlSelect1">主類別</label>
-                        <select class="form-control" id="exampleFormControlSelect1" name="maincategory">
-                            <option value="<?=$row["category_id"]?>"><?=$row["category_id"]?></option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
+                        <select class="form-select" aria-label="Default select example" name="staticcategory">
+                            <?php if($row["valid"] == "1"){
+                                
+                            } ?>
+                                <option value="<?=$row["valid"]?>">
+                               <?php if($row["valid"] == "1")echo" 顯示"?>
+                              </option>
+                      
+                        <!-- <input type="text" value="<?=$row["valid"]?>" class="form-control" id="exampleFormControlInput1" name="valid"> -->
                         </select>
                     </div>
                     
+                    <div class="form-group mb-2">
+                        <label for="exampleFormControlSelect1">主類別</label>
+                        <select class="form-select" aria-label="Default select example" name="maincategory">
+                            <?php foreach($cateMainRows as $mainCATE): ?> 
+                                <?php $selected = ( $mainCATE["category_id"] == $row["category_id"]) ? "selected" : ""; ?>
+                                <option <?=$selected?> value="<?=$mainCATE["category_id"] ?>">
+                               <?=$mainCATE["category_name"] ?>
+                              </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <?php endforeach;?>
                    
                     <button class="btn btn-secondary" type="submit"> 確認</button>
                 </form>

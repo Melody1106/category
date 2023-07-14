@@ -1,7 +1,7 @@
 <?php include("db_connect.php")?>
 <?php
 
-if(!isset($_POST["category"])){
+if(!isset($_POST["subcategory"])){
     die("請依正常管道進入");
 }
 
