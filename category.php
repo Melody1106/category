@@ -6,6 +6,7 @@
 $sqlCategory="SELECT * FROM category ";
 $resultCategory = $conn->query($sqlCategory);
 $cateMainRows = $resultCategory->fetch_all(MYSQLI_ASSOC);
+//---page--
 
 //----------------------------------------
 if(isset($_GET["category"])){
@@ -27,6 +28,8 @@ ON s.category_id = c.category_id
 }
 
 $resultCate = $conn->query($sql); 
+
+$subcategory_count = $resultCate->num_rows;
 $cateRows = $resultCate->fetch_all(MYSQLI_ASSOC);
 
 //var_dump($cateSbRows);
@@ -119,19 +122,23 @@ $cateRows = $resultCate->fetch_all(MYSQLI_ASSOC);
           </td>
           </tr>
         <?php endforeach;?>
-      
-          <!-- <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>隱藏</td>
-            <td>第二層級</td>
-            <td>編輯|刪除|複製</td>
-          </tr>
-          -->
- 
+       
         </tbody>
+        <tr>
+          <td colspan="6" class="text-end px-4"> 共 <?=$subcategory_count?> 筆資料 </td>
+        </tr>
       </table>
+    
     </div>
+    <div class="container mx-3 d-flex justify-content-center">
+    <nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+  </ul>
+</nav>
+</div>
     </div>
 
 

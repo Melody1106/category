@@ -27,7 +27,6 @@ if(isset($_GET["category"])){
     ON s.category_id = c.category_id
     WHERE s.subcategory_name LIKE '%$name%'
 
-    
     ";
 }else{
   $sql = "SELECT c.category_name, c.category_id, s.subcategory_id, s.subcategory_name, s.valid
@@ -38,6 +37,7 @@ ON s.category_id = c.category_id
 }
 
 $resultCate = $conn->query($sql); 
+$subcategory_count = $resultCate->num_rows;
 $cateRows = $resultCate->fetch_all(MYSQLI_ASSOC);
 
 var_dump($cateSbRows);
@@ -79,7 +79,7 @@ var_dump($cateSbRows);
         </form>
       </div>
       <div class="d-flex justify-content-between align-items-center px-3">
-        <div>共有<?=$user_count?>筆資料</div>
+        <div>共有<?=$subcategory_count?>筆資料</div>
       </div>
     </div>
 
@@ -114,10 +114,10 @@ var_dump($cateSbRows);
         </td>
           </tr>
         <?php endforeach;?>
-      
         </tbody>
       </table>
     </div>
+    
     </div>
 
 
