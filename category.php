@@ -1,12 +1,24 @@
 <?php include("db_connect.php")?>
 
 <?php
-
-
 $sqlCategory="SELECT * FROM category ";
 $resultCategory = $conn->query($sqlCategory);
 $cateMainRows = $resultCategory->fetch_all(MYSQLI_ASSOC);
-//---page--
+// 抓取頁數------------------------------------
+$page = $_GET["page"];
+
+$sqlPage = "SELECT subcategory_id FROM subcategory WHERE valid=1";
+$resultPage = $conn->query($sqlPage);
+$totalUser = $resultPage->num_rows;
+$resultV = $resultPage->fetch_all(MYSQLI_ASSOC);
+var_dump($resultV);
+var_dump($totalUser);
+
+$perPage = 5;
+$startItem=($page-1)*$perPage;
+//頁數計算
+$totalPage=$totalUser/$perPage;
+var_dump($totalPage);
 
 //----------------------------------------
 if(isset($_GET["category"])){
@@ -21,9 +33,9 @@ if(isset($_GET["category"])){
 ";
 }else{
   $sql = "SELECT c.category_name, c.category_id, s.subcategory_id, s.subcategory_name, s.valid
-FROM subcategory AS s
-JOIN category AS c
-ON s.category_id = c.category_id
+  FROM subcategory AS s
+  JOIN category AS c
+  ON s.category_id = c.category_id
 ";
 }
 
@@ -51,6 +63,7 @@ $cateRows = $resultCate->fetch_all(MYSQLI_ASSOC);
 
 <body>
   <div class="container">
+  <?=$totalPage?>
 <ul class="nav">
   <li class="nav-item">
     <a class="nav-link active" aria-current="page" href="category.php">全部主類別</a>
@@ -133,9 +146,9 @@ $cateRows = $resultCate->fetch_all(MYSQLI_ASSOC);
     <div class="container mx-3 d-flex justify-content-center">
     <nav aria-label="Page navigation example">
   <ul class="pagination">
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <?php for($i =1; $i<= $totalPage; $i++):?>
+    <li class="page-item"><a class="page-link" href="category.php?page=<?=$i?>"><?= $i?></a></li>
+    <?php endfor; ?>
   </ul>
 </nav>
 </div>
