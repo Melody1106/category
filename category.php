@@ -15,7 +15,7 @@ $resultV = $resultPage->fetch_all(MYSQLI_ASSOC);
 //var_dump($resultV);
 //var_dump($totalUser);
 
-$perPage = 15;
+$perPage = 10;
 $startItem = ($page - 1) * $perPage;
 //頁數計算
 $totalPage = ceil($totalUser / $perPage);
@@ -86,8 +86,8 @@ $cateRows = $resultCate->fetch_all(MYSQLI_ASSOC);
 </head>
 
 <body>
-  <div class="container">
-    <?= $totalPage ?>
+  <div class="container my-3">
+    <!-- <?= $totalPage ?> -->
     <ul class="nav">
       <li class="nav-item">
         <a class="nav-link active" aria-current="page" href="category.php">全部主類別</a>
@@ -117,12 +117,12 @@ $cateRows = $resultCate->fetch_all(MYSQLI_ASSOC);
   <div class="container">
     <div class="py-2 d-flex justify-content-between px-3">
       <div class="col">
-        <a class="btn btn-info mx-3" href="add-category.php"> 新增子類別</a>
-      </div>
-      <div class="col-auto">
         <a href="category.php?page=<?= $page ?>&type=1" class="btn btn-primary ">id<i class="fa-solid fa-arrow-down-1-9"></i></a>
         <a href="category.php?page=<?= $page ?>&type=2" class="btn btn-primary ">id
           <i class="fa-solid fa-arrow-down-9-1"></i></a>
+      </div>
+      <div class="col-auto">
+        <a class="btn btn-info" href="add-category.php"> 新增子類別</a>
       </div>
 
     </div>
@@ -143,7 +143,6 @@ $cateRows = $resultCate->fetch_all(MYSQLI_ASSOC);
               <th scope="row"><?= $subCATE["subcategory_id"] ?></th>
               <td><?= $subCATE["subcategory_name"] ?></td>
               <td>
-                <!-- <?= $subCATE["valid"] ?> -->
                 <?php if ($subCATE["valid"] == "1") {
                   echo " 顯示";
                 } elseif ($subCATE["valid"] == "0") {
@@ -158,7 +157,7 @@ $cateRows = $resultCate->fetch_all(MYSQLI_ASSOC);
               <td>
                 <div class="d-flex justify-content-around">
                   <div class="col-auto ">
-                    <a href="edit-category.php?id=<?= $subCATE["subcategory_id"] ?>">編輯</a>
+                    <a class="text-decoration-none" href="edit-category.php?id=<?= $subCATE["subcategory_id"] ?>">編輯</a>
                   </div>
                   <div class="col-auto ">
                     <form action="dodeleted-category.php" method="post" id="deleteForm">
@@ -173,7 +172,7 @@ $cateRows = $resultCate->fetch_all(MYSQLI_ASSOC);
 
         </tbody>
         <tr>
-          <td colspan="6" class="text-end px-4"> 共 <?= $subcategory_count ?> 筆資料 </td>
+          <td colspan="6" class="text-end px-4">總共 <?= $totalUser ?> 筆資料， 每頁 <?= $subcategory_count ?> 筆資料 </td>
         </tr>
       </table>
 
