@@ -82,10 +82,11 @@ $cateRows = $resultCate->fetch_all(MYSQLI_ASSOC);
 
   <!-- font awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  
+  <link href="css/sb-admin-2.min.css" rel="stylesheet">
 </head>
 
 <body>
+  <div class="container">
   <div class="container my-3">
     <!-- <?= $totalPage ?> -->
     <ul class="nav">
@@ -107,7 +108,7 @@ $cateRows = $resultCate->fetch_all(MYSQLI_ASSOC);
             <input type="text" class="form-control" placeholder="搜尋子類別" name="name">
           </div>
           <div class="col-auto">
-            <button class="btn btn-info">搜尋</button>
+            <button class="btn btn-primary">搜尋</button>
           </div>
         </div>
       </form>
@@ -115,14 +116,14 @@ $cateRows = $resultCate->fetch_all(MYSQLI_ASSOC);
   </div>
 
   <div class="container">
-    <div class="py-2 d-flex justify-content-between px-3">
+    <div class="py-2 d-flex justify-content-between px-1">
       <div class="col">
-        <a href="category.php?page=<?= $page ?>&type=1" class="btn btn-primary ">id<i class="fa-solid fa-arrow-down-1-9"></i></a>
-        <a href="category.php?page=<?= $page ?>&type=2" class="btn btn-primary ">id
+        <a  href="category.php?page=<?= $page ?>&type=1" class="btn btn-primary <?php if($type == 1)echo "active";?>">id<i class="fa-solid fa-arrow-down-1-9 "></i></a>
+        <a href="category.php?page=<?= $page ?>&type=2" class="btn btn-primary <?php if($type == 2)echo "active";?>">id
           <i class="fa-solid fa-arrow-down-9-1"></i></a>
       </div>
       <div class="col-auto">
-        <a class="btn btn-info" href="add-category.php"> 新增子類別</a>
+        <a class="btn btn-primary" href="add-category.php"> 新增子類別</a>
       </div>
 
     </div>
@@ -157,7 +158,7 @@ $cateRows = $resultCate->fetch_all(MYSQLI_ASSOC);
               <td>
                 <div class="d-flex justify-content-around">
                   <div class="col-auto ">
-                    <a class="text-decoration-none" href="edit-category.php?id=<?= $subCATE["subcategory_id"] ?>">編輯</a>
+                    <a class="btn btn-outline-primary" href="edit-category.php?id=<?= $subCATE["subcategory_id"] ?>">編輯</a>
                   </div>
                   <div class="col-auto ">
                     <form action="dodeleted-category.php" method="post" id="deleteForm">
@@ -189,7 +190,7 @@ $cateRows = $resultCate->fetch_all(MYSQLI_ASSOC);
       </nav>
     </div>
   </div>
-
+  </div>
 
 
 
